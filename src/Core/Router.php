@@ -1,5 +1,5 @@
 <?php
-namespace App\core;
+namespace App\Core;
 
 class Router
 {
@@ -18,9 +18,14 @@ class Router
             return;
         }
 
-        [$controller, $method] = $this->routes[$url];  
-        $controller = "\App\Controllers\\" . $controller;
+        [$controller, $method] = $this->routes[$url];
+  
+        $controller = "App\Controllers\\" . $controller;
+
+        // var_dump($controller);exit;
         $v = new $controller();
+                // var_dump($v);exit;
+
         $v->$method();
     }
 }

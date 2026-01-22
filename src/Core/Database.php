@@ -26,7 +26,7 @@ public function getConnexion():PDO
     if( $this->pdo === NULL ){
     try{
     $dns = ("mysql:host={$this->host};dbname={$this->dbname};charset={$this->charset}");
-    $pdo = new PDO ($dns,$this->root,$this->password);
+    $pdo = new PDO ($dns,$this->root,$this->password,[PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION]);
     
     }catch(PDOException $e){
 die('Erreur dans database' . $e->getMessage());    }

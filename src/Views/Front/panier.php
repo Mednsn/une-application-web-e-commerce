@@ -21,7 +21,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="index.html" class="flex-shrink-0 flex items-center gap-2">
+                    <a href="/index" class="flex-shrink-0 flex items-center gap-2">
                         <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -30,7 +30,7 @@
                     </a>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="login.html"
+                    <a href="/login"
                         class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
                         Connexion
                     </a>
@@ -53,7 +53,7 @@
                                 alt="MacBook" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-1 text-center sm:text-left">
-                            <h3 class="text-lg font-bold text-gray-900"><a href="product.html"
+                            <h3 class="text-lg font-bold text-gray-900"><a href="/product"
                                     class="hover:text-indigo-600">MacBook Pro M2</a></h3>
                             <p class="text-sm text-gray-500">Gris Sidéral, 256 Go</p>
                         </div>
@@ -80,7 +80,7 @@
                                 alt="Watch" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-1 text-center sm:text-left">
-                            <h3 class="text-lg font-bold text-gray-900"><a href="product.html"
+                            <h3 class="text-lg font-bold text-gray-900"><a href="/product"
                                     class="hover:text-indigo-600">Apple Watch Series 8</a></h3>
                             <p class="text-sm text-gray-500">Alu, Bracelet Sport</p>
                         </div>
@@ -101,7 +101,7 @@
                     </li>
                 </ul>
                 <div class="p-6 bg-gray-50 border-t border-gray-100">
-                    <a href="index.html" class="flex items-center text-indigo-600 font-medium hover:text-indigo-700">
+                    <a href="/index" class="flex items-center text-indigo-600 font-medium hover:text-indigo-700">
                         <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M10 19l-7-7m0 0l7-7m-7 7h18" />

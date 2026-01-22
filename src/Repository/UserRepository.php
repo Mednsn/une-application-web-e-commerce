@@ -21,7 +21,7 @@ class UserRepository
     {
         $sql = " INSERT INTO users (name , email , password , role)VALUES(?,?,?,?)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$user->getName(), $user->getEmail(), $user->getPassword(), $user->getRole()]);
+        $stmt->execute([$user->getName(), $user->getEmail(), $user->getPassword(), $user->getRole()->getId()]);
     }
 
     public function selectUserByEmail(string $email)

@@ -4,13 +4,22 @@ CREATE TABLE users (
     id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80),
     email VARCHAR(80) UNIQUE NOT NULL,
+    password VARCHAR(100),
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     role VARCHAR(80),
-    is_active BOOLEAN DEFAULT true 
+    is_active BOOLEAN DEFAULT true ,
+    user_id int,
+    FOREIGNE KEY (user_id) REFERENCE users(id) ON DELETE CASCADE
+
+
+)ENGINE=INNODB;
+CREATE TABLE roles (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(80)
 
 )ENGINE=INNODB;
 
-CREATE TABLE produits (
+CREATE TABLE products (
     id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80),
     description TEXT,
@@ -18,7 +27,6 @@ CREATE TABLE produits (
     price float,
     stock int,
     image VARCHAR(400),
-    role VARCHAR(80),
     status VARCHAR(80),
     category_id int,
     FOREIGNE KEY (category_id) REFERENCE categories(id) ON DELETE CASCADE
@@ -39,14 +47,16 @@ CREATE TABLE paniers (
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
     user_id int,
     FOREIGNE KEY (user_id) REFERENCE users(id) ON DELETE CASCADE
+    product_id int,
+    FOREIGNE KEY (product_id) REFERENCE products(id) ON DELETE CASCADE
 
 )ENGINE=INNODB;
 
 CREATE TABLE paniers_Items (
     id int PRIMARY KEY AUTO_INCREMENT,
     quantity int ,
-    cart_id int,
-    FOREIGNE KEY (cart_id) REFERENCE carts(id) ON DELETE CASCADE
+    panier_id int,
+    FOREIGNE KEY (panier_id) REFERENCE paniers(id) ON DELETE CASCADE
 
 )ENGINE=INNODB;
 
@@ -54,7 +64,6 @@ CREATE TABLE commandes (
     id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80),
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP ,
-    role VARCHAR(80),
     totalPrice  float,
     status  VARCHAR(80),
     user_id int,
@@ -67,7 +76,12 @@ CREATE TABLE commandes (
 CREATE TABLE commande_Items (
     id int PRIMARY KEY AUTO_INCREMENT,
     quantity int,
-    price float
+    price float ,
+     commande_id int,
+    FOREIGNE KEY (commande_id) REFERENCE commandes(id) ON DELETE CASCADE
+    product_id int,
+    FOREIGNE KEY (product_id) REFERENCE products(id) ON DELETE CASCADE
+
 
 
 )ENGINE=INNODB;

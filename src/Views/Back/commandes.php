@@ -23,7 +23,7 @@
                 <span class="text-xl font-bold tracking-wider uppercase">TechAdmin</span>
             </div>
             <nav class="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
-                <a href="dashboard.html"
+                <a href="/dashboard"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -32,7 +32,7 @@
                     </svg>
                     Dashboard
                 </a>
-                <a href="products.html"
+                <a href="/products"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -41,7 +41,7 @@
                     </svg>
                     Produits
                 </a>
-                <a href="categories.html"
+                <a href="/categories"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -50,14 +50,14 @@
                     </svg>
                     Catégories
                 </a>
-                <a href="orders.html" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
+                <a href="/commandes" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
                     <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                     </svg>
                     Commandes
                 </a>
-                <a href="users.html"
+                <a href="/users"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">

@@ -20,12 +20,12 @@ class AuthController
 
     public function login()
     {
-        require_once __DIR__ . '/../views/auth/login.php';
+        require_once __DIR__ . '/../Views/Auth/login.php';
     }
 
     public function signeUp()
     {
-        require_once __DIR__ . '/../views/auth/signeUp.php';
+        require_once __DIR__ . '/../Views/Auth/signeUp.php';
     }
     public function create()
     {

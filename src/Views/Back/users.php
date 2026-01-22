@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechStore Admin - Produits</title>
+    <title>TechStore Admin - Utilisateurs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +23,7 @@
                 <span class="text-xl font-bold tracking-wider uppercase">TechAdmin</span>
             </div>
             <nav class="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
-                <a href="dashboard.html"
+                <a href="/dashboard"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -32,14 +32,16 @@
                     </svg>
                     Dashboard
                 </a>
-                <a href="products.html" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
-                    <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <a href="/products"
+                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
+                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                     Produits
                 </a>
-                <a href="categories.html"
+                <a href="/categories"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -48,7 +50,7 @@
                     </svg>
                     Catégories
                 </a>
-                <a href="orders.html"
+                <a href="commandes"
                     class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
                     <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -57,26 +59,14 @@
                     </svg>
                     Commandes
                 </a>
-                <a href="users.html"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
+                <a href="/users" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
+                    <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
                     Utilisateurs
                 </a>
             </nav>
-            <div class="p-4 border-t border-gray-800">
-                <a href="../index.html"
-                    class="flex items-center px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">
-                    <svg class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Déconnexion
-                </a>
-            </div>
         </aside>
 
         <!-- Main Content -->
@@ -89,7 +79,7 @@
                             d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
                 </button>
-                <h2 class="text-xl font-semibold text-gray-800">Gestion des Produits</h2>
+                <h2 class="text-xl font-semibold text-gray-800">Gestion des Utilisateurs</h2>
                 <div class="flex items-center gap-4">
                     <div
                         class="h-8 w-8 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold">
@@ -101,31 +91,14 @@
             <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-100 p-6">
 
                 <div class="flex justify-between items-center mb-6">
-                    <div class="flex items-center gap-4">
-                        <div class="relative">
-                            <input type="text" placeholder="Rechercher..."
-                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            <div class="absolute left-3 top-2.5 text-gray-400">
-                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                                </svg>
-                            </div>
-                        </div>
-                        <select
-                            class="border border-gray-300 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                            <option>Toutes les catégories</option>
-                            <option>Ordinateurs</option>
-                            <option>Smartphones</option>
-                        </select>
+                    <div class="flex-1 max-w-lg">
+                        <input type="text" placeholder="Rechercher un utilisateur (nom, email)..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     </div>
-                    <button
-                        class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
-                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                        </svg>
-                        Ajouter un produit
-                    </button>
+                    <div class="ml-4">
+                        <span class="text-gray-500 text-sm">Total: <span
+                                class="font-bold text-gray-900">1,250</span></span>
+                    </div>
                 </div>
 
                 <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
@@ -134,16 +107,13 @@
                             <tr>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Produit</th>
+                                    Utilisateur</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Catégorie</th>
+                                    Rôle</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Prix</th>
-                                <th
-                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Stock</th>
+                                    Date d'inscription</th>
                                 <th
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Statut</th>
@@ -153,86 +123,56 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <!-- Product 1 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=100"
-                                                alt="">
+                                        <div
+                                            class="h-10 w-10 rounded-full bg-gray-200 flex flex-shrink-0 items-center justify-center text-gray-500 font-bold">
+                                            JD
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">MacBook Pro M2</div>
-                                            <div class="text-sm text-gray-500">REF: MB-PRO-M2</div>
+                                            <div class="text-sm font-medium text-gray-900">Jean Dupont</div>
+                                            <div class="text-sm text-gray-500">jean.dupont@email.com</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Ordinateurs</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1 299 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Client</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">15 Jan 2026</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Actif</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Éditer</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Voir</a>
+                                    <a href="#" class="text-red-600 hover:text-red-900">Bannir</a>
                                 </td>
                             </tr>
-                            <!-- Product 2 -->
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=100"
-                                                alt="">
+                                        <div
+                                            class="h-10 w-10 rounded-full bg-indigo-500 flex flex-shrink-0 items-center justify-center text-white font-bold">
+                                            AD
                                         </div>
                                         <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Apple Watch Series 8</div>
-                                            <div class="text-sm text-gray-500">REF: AW-S8</div>
+                                            <div class="text-sm font-medium text-gray-900">Admin User</div>
+                                            <div class="text-sm text-gray-500">admin@techstore.com</div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Accessoires</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">399 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><span
+                                        class="font-bold text-indigo-600">Administrateur</span></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">01 Jan 2026</td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Actif</span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Éditer</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
+                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-2">Voir</a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <!-- Pagination -->
-                    <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
-                        <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
-                            <div>
-                                <p class="text-sm text-gray-700">
-                                    Affichage de <span class="font-medium">1</span> à <span
-                                        class="font-medium">10</span> sur <span class="font-medium">28</span> résultats
-                                </p>
-                            </div>
-                            <div>
-                                <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
-                                    aria-label="Pagination">
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">Précédent</a>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">1</a>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">2</a>
-                                    <a href="#"
-                                        class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">Suivant</a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
             </main>
