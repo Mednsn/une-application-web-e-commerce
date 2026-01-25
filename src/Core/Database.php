@@ -2,7 +2,7 @@
 namespace App\core;
 USE PDO;
 USE PDOException;
-class Database{
+class Database {
     private string $host;
     private string $dbname;
     private string $charset;

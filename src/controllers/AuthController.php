@@ -2,20 +2,18 @@
 
 namespace App\Controllers;
 
-session_start();
-
-use App\Service\UserService;
 use App\Models\Entity\User;
-
-
+use App\Models\Entity\Role;
+use App\Repository\UserRepository;
+use App\Repository\RoleRepository;
 
 class AuthController
 {
-    private UserService $user_service;
+    private UserRepository $user_repository;
 
     public function __construct()
     {
-        $this->user_service = new UserService();
+        $this->user_repository = new UserRepository();
     }
 
     public function login()
@@ -29,28 +27,49 @@ class AuthController
     }
     public function create()
     {
-        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password'])) {
-           $hash_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-           $user = new User($_POST['name'], $_POST['email'], $hash_password, 'Utilisateur');
-           $this->user_service->create($user);
-           $_SESSION['email'] = $_POST['email'];
-           header('location: /article');
-           } else {
+        $row = $this->user_repository->selectUserByEmail($_POST['email']);
+
+        if (!$row && !empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+            $hash_password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+            
+            $user = new User();
+
+            $role = new Role();
+            $role->setName('Utilisateur');
+            $role_repo = new RoleRepository();
+            
+            if (!$role_repo->selectRole('Utilisateur')) {
+                $last_id = $role_repo->create($role);
+                $row = $user->setRole($last_id);
+            } else {
+                $row = $role_repo->selectRole('Utilisateur');
+            }
+            $user->setName($_POST['name']);
+            $user->setEmail($_POST['email']);
+            $user->setPassword($hash_password);
+            $user->setRole($row->getId());
+            
+            $_SESSION['user_id'] = $this->user_repository->create($user);
+            $_SESSION['email'] = $_POST['email'];
+            
+            header('location: /home');
+        } else {
             header('location: /signeUp');
         }
     }
-    public function inscrire()
+    public function connecxion()
     {
-        $row = $this->user_service->selectUserByEmail($_POST['email']);
-        $passwrd = $row->password;
+        $row = $this->user_repository->selectUserByEmail($_POST['email']);
+        $passwrd = $row->getPassword();
 
         if ($row && password_verify($_POST['password'], $passwrd)) {
             $_SESSION['email'] = $_POST['email'];
-            if ($row->role === "Admin") {
+            $_SESSION['user_id'] = $row->getId();
+            if ($row->getRole() === 1) {
                 header('location: /dashboard');
             } else {
 
-                header('location: /article');
+                header('location: /home');
             }
         } else {
 
@@ -59,24 +78,28 @@ class AuthController
     }
     public function modifierAccounte()
     {
-        $row = $this->user_service->selectUserByEmail($_POST['modified_email']);
+        $row = $this->user_repository->selectUserByEmail($_POST['modified_email']);
         if ($row->role === "Admin") {
-            $this->user_service->update($row->id, "Utilisateur");
+            $this->user_repository->update($row->id, "Utilisateur");
         } else {
             if ($row->role === "Utilisateur") {
-                $this->user_service->update($row->id, "Admin");
+                $this->user_repository->update($row->id, "Admin");
             }
         }
         header('location: /dashboard');
     }
     public function deleteAccounte()
     {
-        $this->user_service->delete($_POST['supprimer_id']);
+        $this->user_repository->delete($_POST['supprimer_id']);
         header('location: /dashboard');
     }
+    public function checkByEmail(string $email)
+    {
+        return $this->user_repository->selectUserByEmail($email);
+    }
+
     public function destroy()
     {
-
         session_destroy();
         header('location: /home');
     }

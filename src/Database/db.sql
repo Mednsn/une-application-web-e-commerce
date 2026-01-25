@@ -1,23 +1,24 @@
 CREATE DATABASE ecommerce_prd_electronique;
 USE ecommerce_prd_electronique;
+
+CREATE TABLE roles (
+    id int PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(80)
+
+)ENGINE=INNODB;
 CREATE TABLE users (
     id int PRIMARY KEY AUTO_INCREMENT,
     name VARCHAR(80),
     email VARCHAR(80) UNIQUE NOT NULL,
     password VARCHAR(100),
     date_creation TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    role VARCHAR(80),
     is_active BOOLEAN DEFAULT true ,
-    user_id int,
-    FOREIGNE KEY (user_id) REFERENCE users(id) ON DELETE CASCADE
+    role_id int,
+    FOREIGNE KEY (role_id) REFERENCE roles(id) ON DELETE CASCADE
 
 
 )ENGINE=INNODB;
-CREATE TABLE roles (
-    id int PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(80)
 
-)ENGINE=INNODB;
 
 CREATE TABLE products (
     id int PRIMARY KEY AUTO_INCREMENT,

@@ -1,3 +1,21 @@
+<?php
+
+use App\Controllers\ProductController;
+use App\Controllers\AuthController;
+
+$userController = new AuthController();
+if(isset($_SESSION['email'])){
+    $user = $userController->checkByEmail($_SESSION['email']);    
+}else{
+    $user=null;
+}
+$productController = new ProductController();
+$product = $productController->selectById($_POST['product_id']);
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -22,7 +40,7 @@
             <div class="flex justify-between h-16">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="/index" class="flex-shrink-0 flex items-center gap-2">
+                    <a href="/home" class="flex-shrink-0 flex items-center gap-2">
                         <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -33,7 +51,7 @@
 
                 <!-- Navigation Links (Hidden on mobile) -->
                 <div class="hidden md:flex ml-10 space-x-8 items-center">
-                    <a href="/index" class="text-gray-700 hover:text-indigo-600 font-medium">Catalogue</a>
+                    <a href="/home" class="text-gray-700 hover:text-indigo-600 font-medium">Catalogue</a>
                     <a href="#" class="text-gray-500 hover:text-gray-900 font-medium">Promotions</a>
                     <a href="#" class="text-gray-500 hover:text-gray-900 font-medium">Nouveautés</a>
                 </div>
@@ -57,11 +75,10 @@
     <div class="bg-white border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
             <nav class="flex text-sm font-medium text-gray-500">
-                <a href="/index" class="hover:text-indigo-600">Accueil</a>
+                <a href="/home" class="hover:text-indigo-600">Accueil</a>
                 <span class="mx-2">/</span>
-                <a href="index.html" class="hover:text-indigo-600">Ordinateurs</a>
-                <span class="mx-2">/</span>
-                <span class="text-gray-900">MacBook Pro M2</span>
+                <a href="/home" class="hover:text-indigo-600"><?php echo $product->category_name ?> : </a>
+                <span class="text-gray-900"><?php echo $product->category_description ?></span>
             </nav>
         </div>
     </div>
@@ -74,11 +91,11 @@
             <div class="space-y-4">
                 <div
                     class="aspect-w-4 aspect-h-3 bg-gray-100 rounded-2xl overflow-hidden shadow-sm border border-gray-100">
-                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=1200"
+                    <img src="./assets/images/<?php echo $product->image ?>"
                         alt="Main Product" class="w-full h-full object-cover">
                 </div>
                 <div class="grid grid-cols-4 gap-4">
-                    <button
+                    <!-- <button
                         class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border-2 border-indigo-600 ring-2 ring-indigo-50 ring-offset-2">
                         <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=200"
                             class="w-full h-full object-cover">
@@ -87,7 +104,7 @@
                         class="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden border border-gray-200 hover:border-gray-300">
                         <img src="https://images.unsplash.com/photo-1611186871348-af283e9c58b4?auto=format&fit=crop&q=80&w=200"
                             class="w-full h-full object-cover">
-                    </button>
+                    </button> -->
                     <!-- More placeholders -->
                 </div>
             </div>
@@ -96,12 +113,11 @@
             <div>
                 <div class="mb-6">
                     <span
-                        class="inline-block bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wide mb-2">En
-                        Stock</span>
-                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2">MacBook Pro M2 13"</h1>
+                        class="inline-block bg-indigo-50 text-indigo-700 text-xs px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wide mb-2"><?php echo $product->status ?></span>
+                    <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-2"><?php echo $product->name ?></h1>
                     <div class="flex items-center gap-4">
                         <div class="flex items-center text-yellow-400">
-                            ★★★★★ <span class="text-gray-500 text-sm ml-2 font-medium">(42 avis)</span>
+                            ★★★★ <span class="text-gray-500 text-sm ml-2 font-medium">(42 avis)</span>
                         </div>
                         <span class="text-gray-300">|</span>
                         <span class="text-green-600 text-sm font-medium">Référence: MB-PRO-M2</span>
@@ -109,17 +125,13 @@
                 </div>
 
                 <div class="mb-8">
-                    <p class="text-gray-600 leading-relaxed">
-                        Le nouveau MacBook Pro repousse les limites avec la puce M2. Une autonomie exceptionnelle
-                        pouvant atteindre 20 heures et un système de refroidissement actif pour des performances
-                        soutenues. Écran Retina brillant, caméra FaceTime HD et micros de qualité studio.
-                    </p>
+                    <p class="text-gray-600 leading-relaxed"><?php echo $product->description ?> </p>
                 </div>
 
                 <div class="border-t border-b border-gray-100 py-6 mb-8 space-y-4">
                     <div class="flex items-end gap-4">
-                        <span class="text-4xl font-extrabold text-gray-900">1 299 €</span>
-                        <span class="text-lg text-gray-400 line-through mb-1">1 459 €</span>
+                        <span class="text-4xl font-extrabold text-gray-900"><?php echo $product->price ?> €</span>
+                        <span class="text-lg text-gray-400 line-through mb-1"><?php echo ($product->price + 30) ?> €</span>
                         <span class="bg-red-100 text-red-600 text-xs font-bold px-2 py-1 rounded mb-2">-11%</span>
                     </div>
 
@@ -136,34 +148,40 @@
                 </div>
 
                 <!-- Actions -->
-                <div class="flex gap-4">
-                    <div class="w-24">
-                        <label for="quantity" class="sr-only">Quantité</label>
-                        <select id="quantity"
-                            class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 py-3">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
+                <form action="/addToPanier" method="POST">
+                    <input type="hidden" name="product_id" value="<?php echo $product->id ?>">
+                    <?php if($user!== null): ?>
+                    <input type="hidden" name="user_id" value="<?php echo $user->getId() ?>">
+                    <?php endif ?>
+                    <div class="flex gap-4">
+                        <div class="w-24">
+                            <label for="quantity" class="sr-only">Quantité</label>
+                            <select id="quantity" name="quantity"   class="block w-full border-gray-300 rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 py-3">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                        <button type="submit"
+                            class="flex-1 bg-indigo-600 border border-transparent rounded-lg py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5">
+                            <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                            Ajouter au panier
+                        </button>
+                        <button
+                            class="p-3 rounded-lg border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-colors">
+                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                        </button>
+
                     </div>
-                    <button
-                        class="flex-1 bg-indigo-600 border border-transparent rounded-lg py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-200 transition-all transform hover:-translate-y-0.5">
-                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                        </svg>
-                        Ajouter au panier
-                    </button>
-                    <button
-                        class="p-3 rounded-lg border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-200 hover:bg-red-50 transition-colors">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                    </button>
-                </div>
+                </form>
 
                 <div class="mt-8 grid grid-cols-2 gap-4">
                     <div class="flex items-center gap-3 p-4 bg-gray-50 rounded-lg">
@@ -180,33 +198,6 @@
                         <span class="text-sm font-medium text-gray-900">Garantie 2 ans</span>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <!-- Tabs / Details -->
-        <div class="mt-20">
-            <div class="border-b border-gray-200">
-                <nav class="-mb-px flex space-x-8" aria-label="Tabs">
-                    <a href="#"
-                        class="border-indigo-500 text-indigo-600 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Description</a>
-                    <a href="#"
-                        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Caractéristiques</a>
-                    <a href="#"
-                        class="border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm">Avis</a>
-                </nav>
-            </div>
-            <div class="py-8 text-gray-600">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore
-                    et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                    cillum dolore eu fugiat nulla pariatur.</p>
-                <ul class="list-disc list-inside mt-4 space-y-2">
-                    <li>Puce Apple M2 avec CPU 8 cœurs</li>
-                    <li>GPU 10 cœurs</li>
-                    <li>8 Go de mémoire unifiée</li>
-                    <li>SSD de 256 Go</li>
-                    <li>Écran Retina 13,3 pouces</li>
-                </ul>
             </div>
         </div>
     </main>

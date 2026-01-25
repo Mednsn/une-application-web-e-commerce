@@ -1,3 +1,20 @@
+<?php
+
+use App\Controllers\ProductController;
+
+
+if (isset($_SESSION['email'])) {
+    $k = 1;
+} else {
+    $k = 0;
+}
+
+$productController = new ProductController();
+$produits = $productController->selectAllProducts();
+// var_dump($produits);exit;
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr" class="scroll-smooth">
 
@@ -111,15 +128,26 @@
                         <span
                             class="absolute top-0 right-0 h-5 w-5 flex items-center justify-center text-xs font-bold text-white bg-gradient-to-r from-red-500 to-pink-500 rounded-full border-2 border-white transform translate-x-1/4 -translate-y-1/4 shadow-sm">2</span>
                     </a>
+                    <?php if ($k != 1): ?>
+                        <a href="/login"
+                            class="sm:inline-flex items-center gap-2 px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-gray-900 hover:bg-indigo-600 hover:shadow-glow transition-all duration-300">
+                            <span>Connexion</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    <?php else: ?>
+                        <a href="/logout"
+                            class="sm:inline-flex items-center gap-2 px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-gray-900 hover:bg-indigo-600 hover:shadow-glow transition-all duration-300">
+                            <span>deconnecter</span>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                            </svg>
+                        </a>
+                    <?php endif; ?>
 
-                    <a href="/login"
-                        class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 border border-transparent text-sm font-semibold rounded-full text-white bg-gray-900 hover:bg-indigo-600 hover:shadow-glow transition-all duration-300">
-                        <span>Connexion</span>
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
-                    </a>
                 </div>
             </div>
         </div>
@@ -341,248 +369,103 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
                     <!-- Premium Product Card 1 -->
-                    <div
-                        class="group bg-white rounded-2xl p-3 shadow-soft hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-transparent hover:border-indigo-50">
-                        <div class="relative h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=1000"
-                                alt="Laptop"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-
-                            <!-- Badges -->
-                            <div class="absolute top-3 left-3 flex gap-2">
-                                <span
-                                    class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Nouveau</span>
-                            </div>
-
-                            <!-- Quick Actions Overlay -->
+                    <?php if ($produits):
+                        foreach ($produits as $produit): ?>
                             <div
-                                class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors"
-                                    title="Ajouter au panier">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors"
-                                    title="Favoris">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
+                                class="group bg-white rounded-2xl p-3 shadow-soft hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-transparent hover:border-indigo-50">
+                                <div class="relative h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
+                                    <img src="./assets/images/<?php echo $produit->getImage() ?>"
+                                        alt="Laptop"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
 
-                        <div class="px-2 pb-2">
-                            <div class="text-xs text-indigo-600 font-bold uppercase tracking-wide mb-1">Apple</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
-                                    class="hover:text-indigo-600 transition-colors">MacBook Pro M2</a></h3>
-
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400 text-sm">★★★★★</div>
-                                <span class="text-xs text-gray-400 font-medium">(42 avis)</span>
-                            </div>
-
-                            <div class="flex items-center justify-between mt-4">
-                                <div>
-                                    <span class="block text-2xl font-bold text-gray-900">1299 €</span>
-                                    <span class="text-xs text-green-600 font-medium">En stock</span>
-                                </div>
-                                <a href="/product"
-                                    class="px-4 py-2 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                                    Voir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Premium Product Card 2 -->
-                    <div
-                        class="group bg-white rounded-2xl p-3 shadow-soft hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-transparent hover:border-indigo-50">
-                        <div class="relative h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=1000"
-                                alt="Watch"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-
-                            <div
-                                class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="px-2 pb-2">
-                            <div class="text-xs text-indigo-600 font-bold uppercase tracking-wide mb-1">Apple</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
-                                    class="hover:text-indigo-600 transition-colors">Apple Watch Class 8</a></h3>
-
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400 text-sm">★★★★☆</div>
-                                <span class="text-xs text-gray-400 font-medium">(28 avis)</span>
-                            </div>
-
-                            <div class="flex items-center justify-between mt-4">
-                                <div>
-                                    <span class="block text-2xl font-bold text-gray-900">399 €</span>
-                                    <span class="text-xs text-green-600 font-medium">En stock</span>
-                                </div>
-                                <a href="/product"
-                                    class="px-4 py-2 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                                    Voir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Premium Product Card 3 -->
-                    <div
-                        class="group bg-white rounded-2xl p-3 shadow-soft hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-transparent hover:border-indigo-50">
-                        <div class="relative h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=1000"
-                                alt="Headphones"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                            <!-- Badges -->
-                            <div class="absolute top-3 left-3 flex gap-2">
-                                <span
-                                    class="bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">-15%</span>
-                            </div>
-                            <div
-                                class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        <div class="px-2 pb-2">
-                            <div class="text-xs text-indigo-600 font-bold uppercase tracking-wide mb-1">Sony</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
-                                    class="hover:text-indigo-600 transition-colors">Sony WH-1000XM5</a></h3>
-
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400 text-sm">★★★★★</div>
-                                <span class="text-xs text-gray-400 font-medium">(86 avis)</span>
-                            </div>
-
-                            <div class="flex items-center justify-between mt-4">
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <span class="block text-2xl font-bold text-gray-900">299 €</span>
-                                        <span class="text-sm text-gray-400 line-through">349€</span>
+                                    <!-- Badges -->
+                                    <div class="absolute top-3 left-3 flex gap-2">
+                                        <span
+                                            class="bg-indigo-600 text-white text-[10px] font-bold px-2 py-1 rounded-md uppercase tracking-wide">Nouveau</span>
                                     </div>
-                                    <span class="text-xs text-red-500 font-medium">Bientôt épuisé</span>
+
+                                    <!-- Quick Actions Overlay -->
+                                    <div
+                                        class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
+                                        <a href="/panier"
+                                            class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors"
+                                            title="Ajouter au panier">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                            </svg>
+                                        </a>
+                                        <button
+                                            class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors"
+                                            title="Favoris">
+                                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
-                                <a href="/product"
-                                    class="px-4 py-2 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                                    Voir
-                                </a>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Premium Product Card 4 -->
-                    <div
-                        class="group bg-white rounded-2xl p-3 shadow-soft hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-transparent hover:border-indigo-50">
-                        <div class="relative h-64 bg-gray-100 rounded-xl overflow-hidden mb-4">
-                            <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=1000"
-                                alt="Laptop"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <div class="px-2 pb-2">
+                                    <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
+                                            class="hover:text-indigo-600 transition-colors"><?php echo $produit->getName() ?></a></h3>
 
-                            <div
-                                class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                                    </svg>
-                                </button>
-                                <button
-                                    class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors">
-                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
+                                    <div class="flex items-center gap-1 mb-3">
+                                        <div class="flex text-yellow-400 text-sm">★★★★</div>
+                                    </div>
 
-                        <div class="px-2 pb-2">
-                            <div class="text-xs text-indigo-600 font-bold uppercase tracking-wide mb-1">Dell</div>
-                            <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
-                                    class="hover:text-indigo-600 transition-colors">Dell XPS 13</a></h3>
+                                    <div class="flex items-center justify-between mt-4">
+                                        <div>
+                                            <span class="block text-2xl font-bold text-gray-900"><?php echo $produit->getPrice() ?> €</span>
+                                            <?php if ($produit->getStock() == 0): ?>
+                                                <span class="text-xs text-red-600 font-medium"><?php echo $produit->getStatus() ?></span>
+                                            <?php else: ?>
+                                                <span class="text-xs text-green-600 font-medium"><?php echo $produit->getStatus() ?></span>
 
-                            <div class="flex items-center gap-1 mb-3">
-                                <div class="flex text-yellow-400 text-sm">★★★★☆</div>
-                                <span class="text-xs text-gray-400 font-medium">(15 avis)</span>
-                            </div>
+                                            <?php endif; ?>
+                                        </div>
+                                        <form action="/product" method="POST">
+                                            <input type="hidden" name="product_id" value="<?php echo $produit->getId() ?>">
+                                            <input type="hidden" name="product_id" value="<?php echo $produit->getId() ?>">
+                                            <button type="submit"
+                                            class="px-4 py-2 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
 
-                            <div class="flex items-center justify-between mt-4">
-                                <div>
-                                    <span class="block text-2xl font-bold text-gray-900">1199 €</span>
-                                    <span class="text-xs text-green-600 font-medium">En stock</span>
+                                            Voir
+                                        </button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <a href="/product"
-                                    class="px-4 py-2 bg-gray-100 text-gray-900 text-sm font-semibold rounded-lg group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300">
-                                    Voir
-                                </a>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                    <?php endforeach;
+                    endif; ?>
+                    <!-- Premium Product Card 2 -->
 
-                <!-- Pagination (Modern) -->
-                <div class="mt-16 flex justify-center">
-                    <nav class="flex items-center gap-2 p-2 bg-white rounded-full shadow-sm border border-gray-100">
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-500 transition-colors">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 19l-7-7 7-7" />
-                            </svg>
-                        </a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-200">1</a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-600 font-medium transition-colors">2</a>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-600 font-medium transition-colors">3</a>
-                        <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
-                        <a href="#"
-                            class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-500 transition-colors">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    </nav>
-                </div>
+                    <!-- Pagination (Modern) -->
+                    <div class="mt-16 flex justify-center">
+                        <nav class="flex items-center gap-2 p-2 bg-white rounded-full shadow-sm border border-gray-100">
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-500 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 19l-7-7 7-7" />
+                                </svg>
+                            </a>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-indigo-600 text-white font-bold shadow-lg shadow-indigo-200">1</a>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-600 font-medium transition-colors">2</a>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-600 font-medium transition-colors">3</a>
+                            <span class="w-10 h-10 flex items-center justify-center text-gray-400">...</span>
+                            <a href="#"
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent hover:bg-gray-50 text-gray-500 transition-colors">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7" />
+                                </svg>
+                            </a>
+                        </nav>
+                    </div>
             </main>
         </div>
     </div>
@@ -673,4 +556,5 @@
     </footer>
 
 </body>
+
 </html>

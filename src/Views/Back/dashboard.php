@@ -1,10 +1,6 @@
 <?php
 
-use App\Service\UserService;
 
-session_start();
-$usersservice = new UserService();
-$users = $usersservice->selectAll();
 
 // var_dump(count($users));
 // var_dump($articles);exit;

@@ -8,12 +8,6 @@ class Category
     private string $name;
     private string $description;
 
-    public function __construct(string $name , string $description, ?int $id = null)
-    {
-        $this->name = $name;
-        $this->description = $description;
-        $this->id = $id;
-    }
     public function getId(){
         return $this->id;
     }
@@ -24,4 +18,24 @@ class Category
         return $this->description;
     }
        
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
 }

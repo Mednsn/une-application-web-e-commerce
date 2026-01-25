@@ -1,37 +1,72 @@
 <?php
 namespace App\Models\Entity;
 
-USE DateTime;
-USE App\Models\Entity\User;
-USE App\Models\Entity\Product;
 
 
 class Panier
 {
     private ?int $id;
-    private User $user ;
-    private Product $product ;
-    private ?DateTime $date_creation;
+    private int $user_id ;
+    private int $product_id ;
+    private int $quantity ;
+    private ?string $date_creation;
 
-    public function __construct(User $user , Product $product , ?DateTime $date_creation, ?int $id = null)
-    {
-        $this->user = $user;
-        $this->product = $product;
-        $this->date_creation = $date_creation;
-        $this->id = $id;
-    }
+   
     public function getId(){
         return $this->id;
     }
     public function getUser(){
-        return $this->user;
+        return $this->user_id;
     }
     public function getProduct(){
-        return $this->product;
+        return $this->product_id;
     }
     
     public function getDateCreation(){
         return $this->date_creation;
     }
    
+ 
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+ 
+    public function setUser($user_id)
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+
+    public function setProduct($product_id)
+    {
+        $this->product_id = $product_id;
+
+        return $this;
+    }
+
+
+    public function setDate_creation($date_creation)
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+   
+    public function getQuantity()
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity($quantity)
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
 }

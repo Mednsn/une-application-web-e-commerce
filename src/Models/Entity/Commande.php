@@ -9,20 +9,12 @@ class Commande
 {
     private ?int $id;
     private string $name;
-    private ?DATETIME $date_creation;
+    private ?string $date_creation;
     private float $total_price;
     private string $status;
     private User $user;
 
-    public function __construct(string $name , string $status , float $total_price, User $user, ?DateTime $date_creation, ?int $id = null)
-    {
-        $this->name = $name;
-        $this->status = $status;
-        $this->total_price = $total_price;
-        $this->date_creation = $date_creation;
-        $this->user = $user;
-        $this->id = $id;
-    }
+    
     public function getId(){
         return $this->id;
     }
@@ -42,4 +34,46 @@ class Commande
         return $this->date_creation;
     }
    
+
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setDate_creation($date_creation)
+    {
+        $this->date_creation = $date_creation;
+
+        return $this;
+    }
+
+    
+    public function setTotal_price($total_price)
+    {
+        $this->total_price = $total_price;
+
+        return $this;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+   }
+    public function setUser($user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
 }

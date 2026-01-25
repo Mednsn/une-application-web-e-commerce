@@ -1,5 +1,6 @@
 <?php
-namespace App\Models\viewModel;
+
+namespace App\Models\Jointures;
 
 class Products
 {
@@ -9,8 +10,11 @@ class Products
     public string $image;
     public string $status;
     public string $date_creation;
-    public string $category;
-    public string $price;
-    public string $stock;
-    
+    public int $category_id;
+    public float $price;
+    public int $stock;
+    public string $category_name;
+    public string $category_description;
+
+
 }

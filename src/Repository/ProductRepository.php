@@ -4,7 +4,7 @@ namespace App\Repository;
 
 use App\Core\Database;
 use App\Models\Entity\Product;
-use App\Models\viewModel\Products;
+use App\Models\Jointures\Products;
 use PDO;
 
 class ProductRepository
@@ -21,7 +21,7 @@ class ProductRepository
     {
         $sql = " INSERT INTO products (name , description , image , status ,category , price , stock)VALUES(?,?,?,?,?,?,?)";
         $stmt = $this->pdo->prepare($sql);
-        $stmt->execute([$product->getName(), $product->getDescription(), $product->getImage(), $product->getStatus(), $product->getCategory()->getId(), $product->getPrice(), $product->getStock()]);
+        $stmt->execute([$product->getName(), $product->getDescription(), $product->getImage(), $product->getStatus(), $product->getCategory_id(), $product->getPrice(), $product->getStock()]);
     }
 
     public function selectAll()
@@ -29,8 +29,19 @@ class ProductRepository
         $sql = "SELECT * FROM products ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, products::class);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Product::class);
         return $stmt->fetchAll();
+    }
+    public function selectById(int $id)
+    {
+        $sql = "SELECT p.* ,c.name AS category_name,c.description AS category_description
+        FROM products p
+        INNER JOIN categories c ON p.category_id = c.id
+        WHERE p.id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Products::class);
+        return $stmt->fetch();
     }
 
     public function update(int $id, string $role)

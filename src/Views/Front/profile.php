@@ -21,7 +21,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <a href="/index" class="flex-shrink-0 flex items-center gap-2">
+                    <a href="/home" class="flex-shrink-0 flex items-center gap-2">
                         <svg class="h-8 w-8 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M13 10V3L4 14h7v7l9-11h-7z" />
@@ -75,7 +75,7 @@
                         </svg>
                         Sécurité
                     </a>
-                    <a href="/index"
+                    <a href="/home"
                         class="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors mt-4">
                         <svg class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

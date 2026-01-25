@@ -30,7 +30,7 @@ class CommandeRepository
         $sql = "SELECT * FROM commandes ";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, Commandes::class);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Commande::class);
         return $stmt->fetchAll();
     }
 

@@ -13,10 +13,14 @@ return [
     '/users'           => ['BackSwitchController'      ,            'users'],
 
     '/login'           => ['AuthController'            ,            'login'],
+    '/logout'          => ['AuthController'            ,          'destroy'],
     '/signeUp'         => ['AuthController'            ,          'signeUp'],
     '/createAccounte'  => ['AuthController'            ,           'create'],
-    '/inscrire'        => ['AuthController'            ,         'inscrire'],
+    '/inscrire'        => ['AuthController'            ,       'connecxion'],
     '/modifierAccounte'=> ['AuthController'            , 'modifierAccounte'],
     '/deleteAccounte'  => ['AuthController'            ,   'deleteAccounte'],
-    '/destroy'         => ['AuthController'            ,          'destroy']
+
+    '/addToPanier'     => ['ProductController'         ,      'addToPanier'],
+    '/deleteInPanier'  => ['ProductController'         ,   'deleteInPanier'],
+    '/passerCommande'  => ['CommandController'         ,   'passerCommande']
 ];

@@ -4,8 +4,6 @@ namespace App\Repository;
 
 use App\Core\Database;
 use App\Models\Entity\category;
-use App\Models\Entity\User;
-use App\Models\viewModel\Categories;
 use PDO;
 
 class CategoryRepository
