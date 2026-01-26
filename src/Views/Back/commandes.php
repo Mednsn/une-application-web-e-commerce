@@ -1,3 +1,16 @@
+<?php
+
+use App\Controllers\CommandController;
+
+$user_controller = new CommandController();
+
+$commandes = $user_controller->selectCommandWithUser();
+// var_dump($commandes->date_creation);exit;
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -18,55 +31,17 @@
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-900 text-white flex-shrink-0 hidden lg:flex flex-col">
-            <div class="h-16 flex items-center justify-center border-b border-gray-800">
-                <span class="text-xl font-bold tracking-wider uppercase">TechAdmin</span>
-            </div>
-            <nav class="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
-                <a href="/dashboard"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="/products"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                    Produits
-                </a>
-                <a href="/categories"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
-                    Catégories
-                </a>
-                <a href="/commandes" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
-                    <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    Commandes
-                </a>
-                <a href="/users"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    Utilisateurs
-                </a>
+        <aside class="w-64 bg-gray-900/80 text-white flex flex-col backdrop-blur-lg">
+            <div class="p-6 text-2xl font-extrabold">Admin Panel</div>
+            <nav class="flex-1 px-4 space-y-2">
+                <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Dashboard</a>
+                <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Users</a>
+                <a href="/products" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Category et des Produits</a>
+                <a href="/commandes" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Commandes</a>
             </nav>
+            <div class="p-4">
+                <a href="/logout" class="block text-center bg-red-500 hover:bg-red-600 py-2 rounded-lg transition">Logout</a>
+            </div>
         </aside>
 
         <!-- Main Content -->
@@ -130,33 +105,23 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">#839201</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Jean Dupont</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">20 Jan 2026</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1 299 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Livrée</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Détails</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">#839202</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Marie Martin</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">19 Jan 2026</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">En
-                                        cours</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900">Détails</a>
-                                </td>
-                            </tr>
+                            <?php if ($commandes):
+                                foreach ($commandes as $commande): ?>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-indigo-600">#83920-<?php echo $commande->id; ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo $commande->name; ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $commande->date_creation; ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo $commande->total_price; ?> €</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Livrée</span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900">Détails</a>
+                                        </td>
+                                    </tr>
+                                    
+                            <?php endforeach;  endif; ?>
                         </tbody>
                     </table>
                 </div>

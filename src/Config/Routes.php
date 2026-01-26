@@ -1,26 +1,29 @@
 <?php
 
 return [
-    '/'                => ['FrentSwitchController'     ,            'index'],
-    '/home'            => ['FrentSwitchController'     ,            'index'],
-    '/panier'          => ['FrentSwitchController'     ,           'panier'],
-    '/product'         => ['FrentSwitchController'     ,          'product'],
-    '/profile'         => ['FrentSwitchController'     ,          'profile'],
+    '/'                => ['FrontSwitchController'     ,            'index'],
+    '/home'            => ['FrontSwitchController'     ,            'index'],
+    '/panier'          => ['FrontSwitchController'     ,           'panier'],
+    '/product'         => ['FrontSwitchController'     ,          'product'],
+    '/profile'         => ['FrontSwitchController'     ,          'profile'],
 
     '/dashboard'       => ['BackSwitchController'      ,            'index'],
     '/commandes'       => ['BackSwitchController'      ,        'commandes'],
     '/products'        => ['BackSwitchController'      ,         'products'],
-    '/users'           => ['BackSwitchController'      ,            'users'],
+    '/users'           => ['BackSwitchController'      ,            'index'],
 
     '/login'           => ['AuthController'            ,            'login'],
     '/logout'          => ['AuthController'            ,          'destroy'],
     '/signeUp'         => ['AuthController'            ,          'signeUp'],
     '/createAccounte'  => ['AuthController'            ,           'create'],
     '/inscrire'        => ['AuthController'            ,       'connecxion'],
-    '/modifierAccounte'=> ['AuthController'            , 'modifierAccounte'],
-    '/deleteAccounte'  => ['AuthController'            ,   'deleteAccounte'],
+    '/modifierAccounte'=> ['DashboardController'            , 'updateRoleUser'],
+    '/deleteAccounte'  => ['DashboardController'            ,   'deleteUser'],
 
     '/addToPanier'     => ['ProductController'         ,      'addToPanier'],
     '/deleteInPanier'  => ['ProductController'         ,   'deleteInPanier'],
-    '/passerCommande'  => ['CommandController'         ,   'passerCommande']
+    '/processPanier'   => ['ProductController'         ,    'proccesPanier'],
+
+    '/createCommande'  => ['CommandController'         ,           'create']
+
 ];

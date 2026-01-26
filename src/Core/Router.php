@@ -22,7 +22,7 @@ class Router
   
         $controller = "App\Controllers\\" . $controller;
 
-        // var_dump($controller);exit;
+        // var_dump( $controller);exit;
         $v = new $controller();
                 // var_dump($v);exit;
 

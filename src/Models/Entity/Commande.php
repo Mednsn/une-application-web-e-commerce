@@ -1,25 +1,18 @@
 <?php
 namespace App\Models\Entity;
 
-USE DATETIME;
-USE App\Models\Entity\Role;
-
 
 class Commande
 {
     private ?int $id;
-    private string $name;
     private ?string $date_creation;
     private float $total_price;
     private string $status;
-    private User $user;
+    private int $user_id;
 
     
     public function getId(){
         return $this->id;
-    }
-    public function getName(){
-        return $this->name;
     }
     public function getStatus(){
         return $this->status;
@@ -28,7 +21,7 @@ class Commande
         return $this->total_price;
     }
     public function getUser(){
-        return $this->user;
+        return $this->user_id;
     }
     public function getDateCreation(){
         return $this->date_creation;
@@ -38,13 +31,6 @@ class Commande
     public function setId($id)
     {
         $this->id = $id;
-
-        return $this;
-    }
-
-    public function setName($name)
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -70,9 +56,9 @@ class Commande
 
         return $this;
    }
-    public function setUser($user)
+    public function setUser($user_id)
     {
-        $this->user = $user;
+        $this->user_id = $user_id;
 
         return $this;
     }

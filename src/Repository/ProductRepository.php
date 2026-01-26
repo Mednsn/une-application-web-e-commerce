@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Core\Database;
 use App\Models\Entity\Product;
+use App\Models\Jointures\CategoryProduct;
 use App\Models\Jointures\Products;
 use PDO;
 
@@ -30,6 +31,16 @@ class ProductRepository
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
         $stmt->setFetchMode(PDO::FETCH_CLASS, Product::class);
+        return $stmt->fetchAll();
+    }
+    public function selectAllProductWithCategory()
+    {
+        $sql = "SELECT p.*,c.name AS category_name
+        FROM products p
+        INNER JOIN categories c ON p.category_id = c.id";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_CLASS, CategoryProduct::class);
         return $stmt->fetchAll();
     }
     public function selectById(int $id)

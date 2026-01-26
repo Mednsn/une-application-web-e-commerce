@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Core\Database;
 use App\Models\Entity\User;
+use App\Models\Jointures\Users;
 use App\Repository\RoleRepository;
 use PDO;
 
@@ -35,17 +36,30 @@ class UserRepository
     }
     public function selectAll()
     {
-        $sql = "SELECT * FROM users ";
+        $sql = "SELECT u.* ,r.name AS role
+        FROM users u
+        INNER JOIN roles r ON u.role_id=r.id";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_CLASS, User::class);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Users::class);
         return $stmt->fetchAll();
     }
+     public function selectInfosUserById(int $id)
+    {
+        $sql = "SELECT u.* ,r.name AS role
+        FROM users u
+        INNER JOIN roles r ON u.role_id=r.id
+        WHERE u.id = ?";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, Users::class);
+        return $stmt->fetch();
+    }
 
-    public function update(int $id, string $role)
+    public function update(int $id,  $role)
     {
         $sql = "UPDATE users 
-                SET  role = ?
+                SET  role_id = ?
                 WHERE id = ?";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute([$role, $id]);

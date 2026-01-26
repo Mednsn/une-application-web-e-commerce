@@ -1,10 +1,11 @@
 <?php
 
+USE App\Controllers\DashboardController;
 
+$user_controller = new DashboardController();
 
-// var_dump(count($users));
-// var_dump($articles);exit;
-
+$users = $user_controller->selectAll();
+// var_dump($users[0]->name);exit;
 
 ?>
 
@@ -36,12 +37,13 @@
     <aside class="w-64 bg-gray-900/80 text-white flex flex-col backdrop-blur-lg">
       <div class="p-6 text-2xl font-extrabold">Admin Panel</div>
       <nav class="flex-1 px-4 space-y-2">
-        <a href="#" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Dashboard</a>
-        <a href="#users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Users</a>
-        <a href="#" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Settings</a>
+        <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Dashboard</a>
+        <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Users</a>
+        <a href="/products" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Category et des Produits</a>
+        <a href="/commandes" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Commandes</a>
       </nav>
       <div class="p-4">
-        <a href="/destroy" class="block text-center bg-red-500 hover:bg-red-600 py-2 rounded-lg transition">Logout</a>
+        <a href="/logout" class="block text-center bg-red-500 hover:bg-red-600 py-2 rounded-lg transition">Logout</a>
       </div>
     </aside>
 
@@ -53,7 +55,7 @@
         <h1 class="text-3xl font-bold text-white">Dashboard</h1>
         <div class="flex items-center gap-4">
           <span class="text-gray-200">Admin</span>
-          <div class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold">A</div>
+          <div class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center font-bold"></div>
         </div>
       </header>
 
@@ -63,10 +65,7 @@
           <h3 class="text-gray-200">Users</h3>
           <p class="text-4xl font-bold text-indigo-400"><?php echo count($users); ?></p>
         </div>
-        <div class="bg-black/40 p-6 rounded-2xl shadow hover:shadow-xl transition backdrop-blur-md">
-          <h3 class="text-gray-200">Articles</h3>
-          <p class="text-4xl font-bold text-purple-400"></p>
-        </div>
+        
         <div class="bg-black/40 p-6 rounded-2xl shadow hover:shadow-xl transition backdrop-blur-md">
           <h3 class="text-gray-200">Admins</h3>
           <p class="text-4xl font-bold text-green-400">3</p>
@@ -85,6 +84,7 @@
             <tr class="border-b border-gray-400">
               <th class="py-2">Nom</th>
               <th>Email</th>
+              <th>Date d'inscription</th>
               <th>Rôle</th>
               <th class="text-center">Action</th>
             </tr>
@@ -95,21 +95,23 @@
                 <tr class="border-b border-gray-400 hover:bg-black/10 transition">
                   <td class="py-2"><?php echo $user->name ?></td>
                   <td><?php echo $user->email ?></td>
+                  <td><?php echo $user->date_creation ?></td>
                   <td><span class="text-indigo-400 font-semibold"><?php echo $user->role ?></span></td>
                   <td class="flex justify-center">
 
-                    <form action="/modifierAccounte" method="post">
+                    <form action="/modifierAccounte" method="POST">
                       <input type="hidden" name="modified_email" value="<?php echo $user->email; ?>">
                       <button type="submit" class=" rounded-xl py-1 px-3 text-bold"><i class="fa fa-pencil" style="font-size:24px;color:green"></i></button>
                     </form>
-                    <form action="/deleteAccounte" method="post">
+                    <form action="/deleteAccounte" method="POST">
                       <input type="hidden" name="supprimer_id" value="<?php echo $user->id; ?>">
                       <button type="submit" class="  rounded-xl py-1 px-3 text-bold"><i class="fa fa-trash" style="font-size:24px;color:red"></i></button>
                     </form>
                   </td>
                 </tr>
             <?php endforeach;
-            endif; ?>
+            endif; 
+            ?>
 
           </tbody>
         </table>

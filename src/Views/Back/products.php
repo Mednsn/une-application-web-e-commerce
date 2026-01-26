@@ -1,3 +1,16 @@
+<?php
+
+use App\Controllers\ProductController;
+
+$product_controller = new ProductController();
+
+$products = $product_controller->selectAllProductWithCategory();
+// var_dump($products);
+// exit;
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -18,64 +31,16 @@
 
     <div class="flex h-screen overflow-hidden">
         <!-- Sidebar -->
-        <aside class="w-64 bg-gray-900 text-white flex-shrink-0 hidden lg:flex flex-col">
-            <div class="h-16 flex items-center justify-center border-b border-gray-800">
-                <span class="text-xl font-bold tracking-wider uppercase">TechAdmin</span>
-            </div>
-            <nav class="flex-1 px-2 py-4 space-y-2 overflow-y-auto">
-                <a href="/dashboard"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                    </svg>
-                    Dashboard
-                </a>
-                <a href="/products" class="flex items-center px-4 py-2 bg-gray-800 text-white rounded-md group">
-                    <svg class="mr-3 h-5 w-5 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                    </svg>
-                    Produits
-                </a>
-                <a href="/categories"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
-                    Catégories
-                </a>
-                <a href="/commandes"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                    </svg>
-                    Commandes
-                </a>
-                <a href="/users"
-                    class="flex items-center px-4 py-2 text-gray-400 hover:bg-gray-800 hover:text-white rounded-md transition-colors group">
-                    <svg class="mr-3 h-5 w-5 group-hover:text-indigo-400 transition-colors" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                    </svg>
-                    Utilisateurs
-                </a>
+        <aside class="w-64 bg-gray-900/80 text-white flex flex-col backdrop-blur-lg">
+            <div class="p-6 text-2xl font-extrabold">Admin Panel</div>
+            <nav class="flex-1 px-4 space-y-2">
+                <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Dashboard</a>
+                <a href="/users" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Users</a>
+                <a href="/products" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Category et des Produits</a>
+                <a href="/commandes" class="block px-4 py-3 rounded-lg hover:bg-black/40 transition">Commandes</a>
             </nav>
-            <div class="p-4 border-t border-gray-800">
-                <a href="/index"
-                    class="flex items-center px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors">
-                    <svg class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Déconnexion
-                </a>
+            <div class="p-4">
+                <a href="/logout" class="block text-center bg-red-500 hover:bg-red-600 py-2 rounded-lg transition">Logout</a>
             </div>
         </aside>
 
@@ -154,59 +119,39 @@
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             <!-- Product 1 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=100"
-                                                alt="">
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">MacBook Pro M2</div>
-                                            <div class="text-sm text-gray-500">REF: MB-PRO-M2</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Ordinateurs</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">1 299 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">45</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Actif</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Éditer</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
-                                </td>
-                            </tr>
+                            <?php if ($products):
+                                foreach ($products as $product): ?>
+                                    <tr>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <div class="flex items-center">
+                                                <div class="h-10 w-10 flex-shrink-0">
+                                                    <img class="h-10 w-10 rounded-full object-cover"
+                                                        src="./assets/images/<?php echo $product->image; ?>"
+                                                        alt="">
+                                                </div>
+                                                <div class="ml-4">
+                                                    <div class="text-sm font-medium text-gray-900"><?php echo $product->name; ?>MacBook Pro M2</div>
+                                                    <div class="text-sm text-gray-500">REF: MB-PRO-M2</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?php echo $product->category_name; ?>Ordinateurs</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo $product->price; ?>1 299 €</td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo $product->stock; ?>45</td>
+                                        <td class="px-6 py-4 whitespace-nowrap">
+                                            <span
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800"><?php echo $product->status; ?></span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Éditer</a>
+                                            <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
+                                        </td>
+                                    </tr>
+                            <?php endforeach;
+                            endif;
+                            ?>
                             <!-- Product 2 -->
-                            <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="h-10 w-10 flex-shrink-0">
-                                            <img class="h-10 w-10 rounded-full object-cover"
-                                                src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=100"
-                                                alt="">
-                                        </div>
-                                        <div class="ml-4">
-                                            <div class="text-sm font-medium text-gray-900">Apple Watch Series 8</div>
-                                            <div class="text-sm text-gray-500">REF: AW-S8</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Accessoires</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">399 €</td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">22</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Actif</span>
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="#" class="text-indigo-600 hover:text-indigo-900 mr-3">Éditer</a>
-                                    <a href="#" class="text-red-600 hover:text-red-900">Supprimer</a>
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                     <!-- Pagination -->

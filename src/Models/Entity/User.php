@@ -1,9 +1,6 @@
 <?php
 namespace App\Models\Entity;
 
-USE DateTime;
-
-
 class User
 {
     private ?int $id;

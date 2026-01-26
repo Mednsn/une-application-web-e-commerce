@@ -19,9 +19,4 @@ class BackSwitchController
         require_once __DIR__ . '/../views/Back/products.php';
       
     }
-    public function users(){
-
-        require_once __DIR__ . '/../views/ack/users.php';
-      
-    }
 }

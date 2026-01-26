@@ -71,4 +71,8 @@ class ProductController
             header('location: /login');
         }
     }
+    public function selectAllProductWithCategory()
+    {
+        return $this->product_repository->selectAllProductWithCategory();
+    }
 }

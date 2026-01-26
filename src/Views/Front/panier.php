@@ -1,7 +1,6 @@
 <?php
 
 use App\Controllers\ProductController;
-use App\Models\Jointures\Products;
 
 if (isset($_SESSION['email'])) {
     $k = 1;
@@ -46,11 +45,18 @@ $data = $productController->selectAllPanierProducts();
                     </a>
                 </div>
                 <?php if ($k != 1): ?>
-
-                    <div class="flex items-center gap-4">
+                <div class="flex items-center gap-4">
                         <a href="/login"
                             class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 transition-colors shadow-sm">
                             Connexion
+                        </a>
+                    </div>
+                <?php else: ?>
+
+                    <div class="flex items-center gap-4">
+                        <a href="/profile"
+                            class=" sm:inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-black hover:text-white transition-colors shadow-sm">
+                            Profile
                         </a>
                     </div>
                 <?php endif ?>
@@ -132,8 +138,9 @@ $data = $productController->selectAllPanierProducts();
                             <span class="font-bold text-2xl text-indigo-600"><?php echo $data['total'] ?> €</span>
                         </div>
                     </div>
-                    <form action="/passerCommande" method="POST">
+                    <form action="/createCommande" method="POST">
                         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id'] ?? -1 ?>">
+                        <input type="hidden" name="totals" value="<?php echo $data['total']  ?>">
                         <button
                             type="submit"
                             class="w-full mt-6 bg-indigo-600 text-white py-3 rounded-lg font-bold hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-100 transition-all shadow-lg shadow-indigo-200">

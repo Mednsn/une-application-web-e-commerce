@@ -2,7 +2,6 @@
 
 namespace App\Models\Entity;
 
-use App\Models\Entity\Category;
 
 
 class Product

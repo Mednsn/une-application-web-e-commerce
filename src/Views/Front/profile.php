@@ -1,3 +1,23 @@
+<?php
+
+use App\Controllers\CommandController;
+
+if (isset($_SESSION['email'])) {
+    $k = 1;
+} else {
+    $k = 0;
+}
+$name = $_SESSION['name'];
+
+$productController = new CommandController();
+$commandes = $productController->selectCommandByUser($_SESSION['user_id']);
+$data = $productController->selectCommandById($_SESSION['user_id']);
+// var_dump($data);exit;
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -30,7 +50,7 @@
                     </a>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a href="/pnaier" class="p-2 text-gray-600 hover:text-indigo-600 transition-colors relative">
+                    <a href="/panier" class="p-2 text-gray-600 hover:text-indigo-600 transition-colors relative">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -39,7 +59,7 @@
                     <div class="flex items-center gap-2">
                         <img src="https://ui-avatars.com/api/?name=John+Doe&background=indigo&color=fff"
                             class="h-8 w-8 rounded-full">
-                        <span class="hidden md:block font-medium text-gray-700">John Doe</span>
+                        <span class="hidden md:block font-medium text-gray-700"><?php echo $name ?></span>
                     </div>
                 </div>
             </div>
@@ -75,7 +95,7 @@
                         </svg>
                         Sécurité
                     </a>
-                    <a href="/home"
+                    <a href="/logout"
                         class="flex items-center px-4 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors mt-4">
                         <svg class="mr-3 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -96,70 +116,51 @@
                     <div class="divide-y divide-gray-100">
 
                         <!-- Order 1 -->
-                        <div class="p-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <div>
-                                    <p class="text-sm text-gray-500">Commande passée le</p>
-                                    <p class="font-bold text-gray-900">20 Janvier 2026</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-sm text-gray-500">Total</p>
-                                    <p class="font-bold text-gray-900">1 299 €</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500">N° de commande</p>
-                                    <p class="font-bold text-gray-900">CMD-839201</p>
-                                </div>
-                                <span
-                                    class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wide">Livrée</span>
-                            </div>
+                        <?php if ($commandes):
+                            foreach ($commandes as $commande): ?>
 
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca4?auto=format&fit=crop&q=80&w=100"
-                                        class="w-full h-full object-cover">
-                                </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900">MacBook Pro M2</h4>
-                                    <p class="text-gray-500 text-sm">Quantité: 1</p>
-                                </div>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">Voir la
-                                    facture</a>
-                            </div>
-                        </div>
+                                <div class="p-6 hover:-translate-y-1 bg-black/5 shadow-lg">
+                                    <div class="flex  items-center justify-between mb-4">
+                                        <div>
+                                            <p class="text-sm text-gray-500">Commande passée le</p>
+                                            <p class="font-bold text-gray-900"><?php echo $commande->getDateCreation() ?></p>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm text-gray-500">Total</p>
+                                            <p class="font-bold text-gray-900"><?php echo $commande->getTotalPrice() ?>€</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm text-gray-500">N° de commande</p>
+                                            <p class="font-bold text-gray-900">CMD-83920-<?php echo $commande->getId() ?></p>
+                                        </div>
+                                        <span
+                                            class="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold uppercase tracking-wide">Livrée</span>
+                                    </div>
 
-                        <!-- Order 2 -->
-                        <div class="p-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <div>
-                                    <p class="text-sm text-gray-500">Commande passée le</p>
-                                    <p class="font-bold text-gray-900">15 Décembre 2025</p>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-sm text-gray-500">Total</p>
-                                    <p class="font-bold text-gray-900">299 €</p>
-                                </div>
-                                <div>
-                                    <p class="text-sm text-gray-500">N° de commande</p>
-                                    <p class="font-bold text-gray-900">CMD-773210</p>
-                                </div>
-                                <span
-                                    class="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold uppercase tracking-wide">Expédiée</span>
-                            </div>
+                                    <div class="flex flex-wrap items-center gap-4">
+                                        <?php if ($data):
+                                            foreach ($data as $element): ?>
+                                                <div class="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
+                                                    <img src="./assets/images/<?php echo $element->image ?>"
+                                                        class="w-full h-full object-cover">
+                                                </div>
+                                                <div class="flex-1">
+                                                    <h4 class="font-medium text-gray-900"><?php echo $element->name ?></h4>
+                                                    <p class="text-gray-500 text-sm">Quantité: <?php echo $element->quantity ?></p>
+                                                </div>
 
-                            <div class="flex items-center gap-4">
-                                <div class="w-16 h-16 bg-gray-100 rounded-md overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=100"
-                                        class="w-full h-full object-cover">
+
+                                        <?php endforeach;
+                                        endif; ?>
+                                        <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">Voir la
+                                            facture</a>
+                                    </div>
                                 </div>
-                                <div class="flex-1">
-                                    <h4 class="font-medium text-gray-900">Sony WH-1000XM5</h4>
-                                    <p class="text-gray-500 text-sm">Quantité: 1</p>
-                                </div>
-                                <a href="#" class="text-indigo-600 hover:text-indigo-700 font-medium text-sm">Suivre le
-                                    colis</a>
-                            </div>
-                        </div>
+
+                        <?php endforeach;
+                        endif; ?>
+
+                        
                     </div>
                 </div>
             </main>

@@ -51,7 +51,8 @@ class AuthController
             
             $_SESSION['user_id'] = $this->user_repository->create($user);
             $_SESSION['email'] = $_POST['email'];
-            
+            $_SESSION['name'] = $_POST['name'];
+
             header('location: /home');
         } else {
             header('location: /signeUp');
@@ -65,6 +66,7 @@ class AuthController
         if ($row && password_verify($_POST['password'], $passwrd)) {
             $_SESSION['email'] = $_POST['email'];
             $_SESSION['user_id'] = $row->getId();
+            $_SESSION['name'] = $row->getName();
             if ($row->getRole() === 1) {
                 header('location: /dashboard');
             } else {
@@ -76,23 +78,8 @@ class AuthController
             header('location: /login');
         }
     }
-    public function modifierAccounte()
-    {
-        $row = $this->user_repository->selectUserByEmail($_POST['modified_email']);
-        if ($row->role === "Admin") {
-            $this->user_repository->update($row->id, "Utilisateur");
-        } else {
-            if ($row->role === "Utilisateur") {
-                $this->user_repository->update($row->id, "Admin");
-            }
-        }
-        header('location: /dashboard');
-    }
-    public function deleteAccounte()
-    {
-        $this->user_repository->delete($_POST['supprimer_id']);
-        header('location: /dashboard');
-    }
+    
+    
     public function checkByEmail(string $email)
     {
         return $this->user_repository->selectUserByEmail($email);

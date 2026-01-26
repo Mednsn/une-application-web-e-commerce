@@ -209,7 +209,7 @@ $produits = $productController->selectAllProducts();
                     </div>
                     <!-- Floating Card -->
                     <div class="absolute -bottom-10 -left-10 bg-white p-4 rounded-xl shadow-xl animate-bounce"
-                        style="animation-duration: 3s;">
+                        style="animation-duration: 1s;">
                         <div class="flex items-center gap-3">
                             <div class="bg-green-100 p-2 rounded-full">
                                 <svg class="w-6 h-6 text-green-600" fill="none" viewBox="0 0 24 24"
@@ -351,7 +351,7 @@ $produits = $productController->selectAllProducts();
             </aside>
 
             <!-- Product Grid -->
-            <main class="flex-1">
+            <main class="flex-1" id="products"> 
                 <div class="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
                     <h2 class="text-2xl font-bold text-gray-900">Tous les produits</h2>
                     <div class="flex items-center gap-3">
@@ -387,14 +387,14 @@ $produits = $productController->selectAllProducts();
                                     <!-- Quick Actions Overlay -->
                                     <div
                                         class="absolute inset-x-0 bottom-0 p-4 translate-y-full group-hover:translate-y-0 transition-transform duration-300 flex justify-center gap-3 bg-gradient-to-t from-black/50 to-transparent">
-                                        <a href="/panier"
+                                        <button
                                             class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-indigo-600 hover:text-white shadow-lg transition-colors"
                                             title="Ajouter au panier">
                                             <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                             </svg>
-                                        </a>
+                                        </button>
                                         <button
                                             class="bg-white text-gray-900 p-2.5 rounded-full hover:bg-red-500 hover:text-white shadow-lg transition-colors"
                                             title="Favoris">
@@ -407,7 +407,7 @@ $produits = $productController->selectAllProducts();
                                 </div>
 
                                 <div class="px-2 pb-2">
-                                    <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="/product"
+                                    <h3 class="text-lg font-bold text-gray-900 mb-1 leading-tight"><a href="#products"
                                             class="hover:text-indigo-600 transition-colors"><?php echo $produit->getName() ?></a></h3>
 
                                     <div class="flex items-center gap-1 mb-3">
